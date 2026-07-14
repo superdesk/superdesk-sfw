@@ -7,16 +7,34 @@
 module.exports = function() {
     return {
         apps: [
+            'superdesk-publisher',
             'superdesk-planning',
             'superdesk.analytics',
         ],
         importApps: [
             '../index',
+            'superdesk-publisher',
             'superdesk-planning',
             'superdesk-analytics',
         ],
 
         defaultRoute: '/workspace/monitoring',
+
+        publisher: {
+            protocol: 'https',                /* http or https */
+            tenant: '',              /* tenant - semantically subdomain, '' is allowed */
+            domain: '',           /* domain name for the publisher */
+            base: 'api/v2',                  /* api base path */
+
+            wsProtocol: 'wss',                /* ws or wss (websocket); if unspecified or '' defaults to 'wss' */
+            wsDomain: '',  /* domain name (usually domain as above) */
+                                            /* e.g.: example.com, abc.example.com */
+                                            /* tenant, as above, is NOT used for websocket */
+            wsPath: '/ws',                    /* path to websocket root dir */
+            wsPort: '80',                   /* if not specified: defaults to 443 for wss, 80 for ws */
+            hideContentRoutesInPublishPane: false, /* hides routes of type "content" from select box in publish panes in monitoring view as well as in output control. If not specified: defaults to false */
+            hideCustomRoutesInPublishPane: false   /* hides routes of type "custom" from select box in publish panes in monitoring view as well as in output control. If not specified: defaults to false */
+        },
 
         langOverride: {
             en: {
@@ -24,6 +42,39 @@ module.exports = function() {
                 'ANPA CATEGORY': 'CATEGORY',
                 'multi-line quote': 'pullquote',
                 'Multi-line quote': 'Pullquote',
+                'Correct': 'Update',
+                'CORRECT': 'Update',
+                'Correct item': 'Update item',
+                'Corrected': 'Updated',
+                'corrected': 'updated',
+                'Correction': 'Update',
+                'Correction issued by': 'Update issued by',
+                'This is a corrected repeat.': 'This is an updated repeat.',
+                'Being Corrected': 'Being Updated',
+                'Send correction': 'Send update',
+                'Edit and Correct': 'Edit and Update',
+                'Cancel correction': 'Cancel update',
+                'Update': 'New version',
+                'UPDATE': 'New version',
+                'Update created': 'New version created',
+                'Unlink update': 'Unlink new version',
+                'Update Created': 'New version created',
+                'U': 'NV',
+                'C': 'Update',
+                'Spike': 'Delete',
+                'spike': 'delete',
+                'Spike Item': 'Delete item',
+                'Spike item': 'Delete item',
+                'Spiked': 'Deleted',
+                'Spiked Items': 'Deleted items',
+                'Unspike Item': 'Undelete Item',
+                'Unspike': 'Undelete',
+                'Attachments': 'Print attachments',
+                'ATTACHMENTS': 'Print attachments',
+                'Spiked Content': 'Deleted Content',
+                'Exclude spiked content': 'Exclude deleted content',
+                'Include spiked content': 'Include deleted content',
+                'Spiked only content': 'Deleted only content',
             }
         },
 
@@ -47,27 +98,30 @@ module.exports = function() {
 
         features: {
             preview: 1,
-            swimlane: {columnsLimit: 99, defaultNumberOfColumns: 4},
+            swimlane: {columnsLimit: 99},
+            swimlane: {defaultNumberOfColumns: 4},
             editor3: true,
             editorHighlights: true,
             noPublishOnAuthoringDesk: true,
+            sendToPersonal: true,
             customAuthoringTopbar: {
                 toDesk: true,
                 publish: true,
-
+                publishAndContinue: true,
                 sendAndDuplicate: {
                     deskName: 'Test',
                     stageName: 'Working',
                 },
             },
             validatePointOfInterestForImages: true,
+            editorHighlights: true,
             editFeaturedImage: true,
             searchShortcut: true,
             elasticHighlight: true,
-            autorefreshContent: true,
-            nestedItemsInOutputStage: false,
             planning: true,
-            sendToPersonal: true,
+            autorefreshContent: true,
+            nestedItemsInOutputStage: true,
+            planning: true,
         },
 
         item_profile: { change_profile: 1 },
